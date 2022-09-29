@@ -1,6 +1,5 @@
 window.addEventListener('load',function()
 {
-    var loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
-    document.getElementById('time').innerHTML = loadTime;
-    document.getElementById('time').innerHTML += "ms";
+    const loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
+    document.getElementById('time').innerHTML = `Total time: ${loadTime}ms (client) + ${document.getElementById('time').innerHTML}`;
 });

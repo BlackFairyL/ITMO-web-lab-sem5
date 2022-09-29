@@ -1,12 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Get, Controller, Render, UseInterceptors, Post } from "@nestjs/common";
+import { TimerInterceptor } from './timer.interceptor';
 
+@UseInterceptors(TimerInterceptor)
 @Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
-
+export class AppController  {
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Render('index')
+  getRootPage() {
+    return { page: "./template/index" }
+  }
+  @Get("about_me")
+  @Render('about_me')
+  getContact() {
+
+    return {page : "about_me"}
   }
 }
