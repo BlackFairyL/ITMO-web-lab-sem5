@@ -1,4 +1,4 @@
-import { Get, Controller, Render, UseInterceptors } from "@nestjs/common";
+import { Get, Controller, Render, UseInterceptors, Post } from "@nestjs/common";
 import { TimerInterceptor } from './timer.interceptor';
 
 @UseInterceptors(TimerInterceptor)
