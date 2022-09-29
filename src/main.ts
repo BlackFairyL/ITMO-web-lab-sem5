@@ -9,7 +9,7 @@ import {UserModule} from "./user/user.module";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  var port = 3000
+  var port = process.env.PORT || 3000;
   app.useStaticAssets(join(__dirname, '..', '/public'));
   app.setBaseViewsDir(join(__dirname, '../views'));
   app.set('view engine', 'ejs');
