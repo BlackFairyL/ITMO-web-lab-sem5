@@ -4,8 +4,6 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { join } from 'path';
 import * as hbs from 'hbs';
 import { AppModule } from './app.module';
-import {UserModule} from "./user/user.module";
-
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
