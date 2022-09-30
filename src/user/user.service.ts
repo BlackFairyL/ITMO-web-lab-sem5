@@ -1,17 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { User, Prisma } from '@prisma/client';
-import { UserCreateDto, UserDto } from "./dto/user.dto";
+import { UserCreateDto, UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async getUser(
-    DataUserDto: UserDto
-  ): Promise<User | null> {
+  async getUser(DataUserDto: UserDto): Promise<User | null> {
     const user = await this.prisma.user.findFirst({
-      where: DataUserDto
+      where: DataUserDto,
     });
     return user;
   }
@@ -25,7 +23,9 @@ export class UserService {
     });
   }
 
-  async deleteUser(DataUserDto: Prisma.UserWhereUniqueInput): Promise<UserCreateDto> {
+  async deleteUser(
+    DataUserDto: Prisma.UserWhereUniqueInput,
+  ): Promise<UserCreateDto> {
     const deleteUser = await this.prisma.user.delete({
       where: {
         id: DataUserDto.id,

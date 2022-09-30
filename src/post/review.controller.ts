@@ -1,13 +1,13 @@
-import { ReviewService } from "./review.service";
-import { UserService } from "../user/user.service";
+import { ReviewService } from './review.service';
+import { UserService } from '../user/user.service';
 import { User as UserModel, Post as PostModel } from '@prisma/client';
 import {
   ApiBody,
   ApiOperation,
   ApiResponse,
   ApiTags,
-  ApiParam
-} from "@nestjs/swagger";
+  ApiParam,
+} from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -18,8 +18,7 @@ import {
   Delete,
   HttpStatus,
 } from '@nestjs/common';
-import { UserCreateDto } from "../user/dto/user.dto";
-
+import { UserCreateDto } from '../user/dto/user.dto';
 
 @ApiTags('Review')
 @Controller('review')
@@ -28,9 +27,9 @@ export class ReviewController {
     private readonly userService: UserService,
     private readonly postService: ReviewService,
   ) {}
-  @ApiOperation({ summary: "Get user" })
-  @ApiResponse({ status: HttpStatus.OK, description: "Success" })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: "Bad Request" })
+  @ApiOperation({ summary: 'Get user' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Get()
   @Get('post/:id')
   async getPostById(@Param('id') id: string): Promise<PostModel> {
@@ -75,7 +74,6 @@ export class ReviewController {
       },
     });
   }
-
 
   @Put('publish/:id')
   async publishPost(@Param('id') id: string): Promise<PostModel> {
