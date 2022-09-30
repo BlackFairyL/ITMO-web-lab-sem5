@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { User, Prisma } from '@prisma/client';
-import { UserDto } from "./dto/user.dto";
+import { UserCreateDto, UserDto } from "./dto/user.dto";
 
 @Injectable()
 export class UserService {
@@ -16,7 +16,7 @@ export class UserService {
     return user;
   }
 
-  async createUser(DataUserDto: UserDto): Promise<User> {
+  async createUser(DataUserDto: UserCreateDto): Promise<User> {
     return this.prisma.user.create({
       data: {
         email: DataUserDto.email,
@@ -25,9 +25,16 @@ export class UserService {
     });
   }
 
-  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
-    return this.prisma.user.delete({
-      where,
+  async deleteUser(DataUserDto: Prisma.UserWhereUniqueInput): Promise<UserCreateDto> {
+    const deleteUser = await this.prisma.user.delete({
+      where: {
+        id: DataUserDto.id,
+      },
+      select: {
+        email: true,
+        name: true,
+      },
     });
+    return deleteUser;
   }
 }
