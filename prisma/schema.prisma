@@ -14,10 +14,10 @@ model User {
   id    Int     @default(autoincrement()) @id
   email String  @unique
   name  String?
-  review Review[]
+  feedback Feedback[]
 }
 
-model Review {
+model Feedback {
   id        Int      @default(autoincrement()) @id
   title     String
   content   String?

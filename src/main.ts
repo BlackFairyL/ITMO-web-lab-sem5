@@ -4,6 +4,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { join } from 'path';
 import * as hbs from 'hbs';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -12,6 +13,7 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '../views'));
   app.set('view engine', 'ejs');
   app.setViewEngine('hbs');
+  app.useGlobalPipes(new ValidationPipe());
   hbs.registerPartials(join(__dirname, '..', '/views/template'));
   const config = new DocumentBuilder()
     .setDescription('The API description')

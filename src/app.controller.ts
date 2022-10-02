@@ -11,7 +11,7 @@ export class AppController {
   }
   @Get('about_me')
   @Render('about_me')
-  getContact() {
+  getAbout_me() {
     return { page: 'about_me' };
   }
 }
