@@ -1,22 +1,35 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsNumberString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumberString, IsString } from "class-validator";
 
 export class UserDto {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'User id',
+    example: '1',
+  })
   @IsNumberString()
   id: number;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'User email',
+    example: 'kek@kek.ru',
+  })
   @IsEmail()
   email: string;
 }
 
 export class UserInfoDto {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'user name',
+    example: 'Jojo',
+  })
   @IsNotEmpty()
+  @IsString()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'User email',
+    example: 'kek@kek.ru',
+  })
   @IsEmail()
   email: string;
 }

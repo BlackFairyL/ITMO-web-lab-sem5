@@ -12,8 +12,10 @@ import {
   Delete,
   HttpStatus,
   ParseIntPipe,
+  UseFilters,
 } from '@nestjs/common';
 import { FeedbackDto } from './dto/feedback.dto';
+import { HttpExceptionFilter } from "../http-exception.filter";
 
 @ApiTags('Feedback')
 @Controller('feedback')
@@ -22,9 +24,10 @@ export class FeedbackController {
     private readonly userService: UserService,
     private readonly postService: FeedbackService,
   ) {}
-  @ApiOperation({ summary: 'Get feedback' })
+  @ApiOperation({ summary: 'Get feedback by id' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @UseFilters(HttpExceptionFilter)
   @Get('feedback/:id')
   async getFeedbackById(
     @Param('id', ParseIntPipe) id: string,
@@ -32,9 +35,10 @@ export class FeedbackController {
     return this.postService.feedback({ id: +id });
   }
 
-  @ApiOperation({ summary: 'Get feedbacks' })
+  @ApiOperation({ summary: 'Get all published feedbacks' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @UseFilters(HttpExceptionFilter)
   @Get('feed')
   async getPublishedFeedbacks(): Promise<PostModel[]> {
     return this.postService.feedbacks({
@@ -42,6 +46,8 @@ export class FeedbackController {
     });
   }
   @ApiOperation({ summary: 'Content feedback search' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Get('filtered-feedback/:searchString')
   async getFilteredFeedbacks(
     @Param('searchString') searchString: string,
@@ -60,6 +66,10 @@ export class FeedbackController {
     });
   }
 
+  @ApiOperation({ summary: 'Post feedback' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @UseFilters(HttpExceptionFilter)
   @Post('feedback')
   async createDraft(@Body() feedbackDto: FeedbackDto): Promise<PostModel> {
     const { title, content, authorEmail } = feedbackDto;
@@ -71,7 +81,10 @@ export class FeedbackController {
       },
     });
   }
-
+  @ApiOperation({ summary: 'Publish feedback by id' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @UseFilters(HttpExceptionFilter)
   @Put('publish/:id')
   async publishFeedback(
     @Param('id', ParseIntPipe) id: string,
@@ -82,6 +95,10 @@ export class FeedbackController {
     });
   }
 
+  @ApiOperation({ summary: 'Delete feedback by id' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @UseFilters(HttpExceptionFilter)
   @Delete('feedback/:id')
   async deleteFeedback(
     @Param('id', ParseIntPipe) id: string,
