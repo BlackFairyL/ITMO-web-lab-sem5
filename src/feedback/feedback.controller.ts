@@ -1,7 +1,7 @@
 import { FeedbackService } from './feedback.service';
 import { UserService } from '../user/user.service';
 import { User as UserModel, Feedback as PostModel } from '@prisma/client';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBasicAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import {
   Controller,
   Get,
@@ -13,9 +13,13 @@ import {
   HttpStatus,
   ParseIntPipe,
   UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { FeedbackDto } from './dto/feedback.dto';
 import { HttpExceptionFilter } from "../http-exception.filter";
+import { AuthGuard } from "../auth/auth.guard";
+import { SessionContainer } from "supertokens-node/recipe/session";
+import { Session } from "../auth/session.decorator";
 
 @ApiTags('Feedback')
 @Controller('feedback')
@@ -71,6 +75,7 @@ export class FeedbackController {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @UseFilters(HttpExceptionFilter)
   @Post('feedback')
+
   async createDraft(@Body() feedbackDto: FeedbackDto): Promise<PostModel> {
     const { title, content, authorEmail } = feedbackDto;
     return this.postService.createFeedback({
@@ -85,6 +90,7 @@ export class FeedbackController {
   @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @UseFilters(HttpExceptionFilter)
+
   @Put('publish/:id')
   async publishFeedback(
     @Param('id', ParseIntPipe) id: string,
@@ -100,9 +106,9 @@ export class FeedbackController {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @UseFilters(HttpExceptionFilter)
   @Delete('feedback/:id')
-  async deleteFeedback(
-    @Param('id', ParseIntPipe) id: string,
-  ): Promise<PostModel> {
-    return this.postService.deleteFeedback({ id: +id });
+  @ApiBasicAuth()
+  @UseGuards(AuthGuard)
+  async deleteFeedback(@Session() session: SessionContainer): Promise<PostModel> {
+    return this.postService.deleteFeedback({ id: +session.getUserId() });
   }
 }

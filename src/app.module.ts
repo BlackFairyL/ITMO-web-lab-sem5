@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { UserController } from './user/user.controller';
@@ -9,6 +9,7 @@ import { FeedbackService } from './feedback/feedback.service';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './http-exception.filter';
 import { AuthModule } from './auth/auth.module';
+import { AuthMiddleware } from "./auth/auth.middleware";
 
 @Module({
   imports: [
@@ -20,26 +21,22 @@ import { AuthModule } from './auth/auth.module';
         apiDomain: "http://localhost:3000",
         websiteDomain: "http://localhost:3000",
         apiBasePath: "/api/auth",
-        websiteBasePath: "/auth",
+        websiteBasePath: "/",
       },
-    }),
+    }), AppModule, AuthModule, AuthModule
   ],
-  controllers: [/* ... */],
-  providers: [/* ... */],
-})
-
-@Module({
-  imports: [AppModule, AuthModule],
   controllers: [AppController, UserController, FeedbackController],
-  providers: [
-    AppService,
+  providers: [ AppService,
     UserService,
     PrismaService,
     FeedbackService,
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
-    },
-  ],
+    },],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware);
+  }
+}
