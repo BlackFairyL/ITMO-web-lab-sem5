@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" name="main page" content="information about me">
+  {{> head}}
+</head>
+<body>
+{{> menu}}
+<body class="page">
+<section class="content__page">
+  <div class="constructor">
+    <form>
+      <h3 class="text-center">Форма входа</h3>
+      <div class="form-group">
+        <input class="item" type="email" name="email" id="email" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <input class="item" type="password" name="Пароль" minlength="6" id="password" placeholder="Пароль" required>
+      </div>
+      <div class="form-group">
+        <button class="create-account" type="submit">Вход в аккаунт</button>
+      </div>
+    </form>
+  </div>
+</section>
+</body>
+
+<footer class="page__footer">
+  {{> footer}}
+</footer>
+</body>
+</html>

@@ -6,11 +6,7 @@ import {
   Controller,
   HttpStatus,
   Body,
-  Param,
-  ValidationPipe,
   UseFilters,
-  ParseIntPipe,
-  ParseArrayPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserInfoDto, UserDto } from './dto/user.dto';

@@ -20,7 +20,7 @@ import { AuthMiddleware } from "./auth/auth.middleware";
         appName: "web-lab",
         apiDomain: "http://localhost:3000",
         websiteDomain: "http://localhost:3000",
-        apiBasePath: "/api/auth",
+        apiBasePath: "/auth",
         websiteBasePath: "/",
       },
     }), AppModule, AuthModule, AuthModule

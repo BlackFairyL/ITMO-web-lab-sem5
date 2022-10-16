@@ -6,17 +6,14 @@ window.onload = async function () {
     for (var i = 0; i < obj.length; i++) {
       var clone = template.content.cloneNode(true);
       var td = clone.querySelectorAll('td');
-      td[0].textContent = obj[i].userId;
-      td[1].textContent = obj[i].id;
-      td[2].textContent = obj[i].title;
-      td[3].textContent = obj[i].body;
+      td[0].textContent = obj[i].authorId;
+      td[1].textContent = obj[i].title;
+      td[2].textContent = obj[i].content;
       tbody.appendChild(clone);
     }
   }
 
-  var id = Math.floor(Math.random() * 10).toString();
-  var str = `https://jsonplaceholder.typicode.com/users/${id}/posts`;
-  let request = await fetch(str);
+  let request = await fetch('/feedback/feed');
   if (request.ok) {
     let data = await request.json();
     addRow(data);

@@ -75,7 +75,7 @@ export class FeedbackController {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @UseFilters(HttpExceptionFilter)
   @Post('feedback')
-
+  @ApiBasicAuth()
   async createDraft(@Body() feedbackDto: FeedbackDto): Promise<PostModel> {
     const { title, content, authorEmail } = feedbackDto;
     return this.postService.createFeedback({
@@ -109,6 +109,7 @@ export class FeedbackController {
   @ApiBasicAuth()
   @UseGuards(AuthGuard)
   async deleteFeedback(@Session() session: SessionContainer): Promise<PostModel> {
-    return this.postService.deleteFeedback({ id: +session.getUserId() });
+    console.log("KEK" + session.getUserId());
+    return this.postService.deleteFeedback({ id: +session });
   }
 }

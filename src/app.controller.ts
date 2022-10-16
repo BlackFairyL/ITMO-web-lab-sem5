@@ -17,6 +17,24 @@ export class AppController {
   getAbout_me() {
     return { page: 'about_me' };
   }
+  @Get('contact')
+  @Render('contact')
+  getContact() {
+    return { page: 'contact' };
+  }
+
+  @Get('feedback')
+  @Render('feedback')
+  getFeedback() {
+    return { page: 'feedback' };
+  }
+
+  @Get('registration')
+  @Render('registration')
+  getLogin() {
+    return { page: 'registration' };
+  }
+
   @Get('test')
   @UseGuards(AuthGuard)
   async getTest(@Session() session: SessionContainer): Promise<string> {
