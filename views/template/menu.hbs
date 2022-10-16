@@ -1,5 +1,4 @@
 <header class="header page__header">
-
   <nav id='my_menu'>
     <ul class='menu'>
       <li class='menu__link'><a
@@ -22,12 +21,20 @@
         class='menu__a'
         id='menu__a__id'
       >Отзывы</a></li>
-      <button type="submit" class="button_login" onclick="openForm()">Войти</button>
-      <li class='menu__link__reg'><a
-        href='registration'
-        class='menu__a'
-        id='menu__a__id'
-      >Регистрация</a></li>
+  {{#unless signed_in}}
+    <button type="submit" class="button_login" onclick="openForm()">Войти</button>
+    <li class='menu__link__reg'><a
+      href='registration'
+      class='menu__a'
+      id='menu__a__id'
+    >Регистрация</a></li>
+  {{else}}
+    <li class='menu__link__reg'><a
+      href='registration'
+      class='menu__a'
+      id='menu__a__id'
+    >Сосать жопу</a></li>
+  {{/unless}}
     </ul>
   </nav>
 </header>

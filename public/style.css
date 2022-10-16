@@ -41,6 +41,11 @@ body {
 
 }
 
+.error{
+  display: none;
+  color: darkred;
+}
+
 .constructor .create-account, .myForm .create-account  {
   border-radius:30px;
   padding:10px 20px;

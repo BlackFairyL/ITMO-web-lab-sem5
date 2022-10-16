@@ -13,7 +13,6 @@ async function bootstrap() {
   var port = process.env.PORT || 3000;
   app.useStaticAssets(join(__dirname, '..', '/public'));
   app.setBaseViewsDir(join(__dirname, '../views'));
-  app.set('view engine', 'ejs');
   app.setViewEngine('hbs');
   app.useGlobalPipes(new ValidationPipe());
   hbs.registerPartials(join(__dirname, '..', '/views/template'));

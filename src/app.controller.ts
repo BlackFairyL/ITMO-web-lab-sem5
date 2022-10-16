@@ -1,38 +1,41 @@
-import { Get, Controller, Render, UseInterceptors, Post, UseGuards } from "@nestjs/common";
+import { Get, Controller, Render, UseInterceptors, UseGuards } from "@nestjs/common";
 import { TimerInterceptor } from './timer.interceptor';
 import { SessionContainer } from "supertokens-node/recipe/session";
 import { AuthGuard } from './auth/auth.guard';
 import { Session } from './auth/session.decorator';
 
-@UseInterceptors(TimerInterceptor)
 @Controller()
+@UseInterceptors(TimerInterceptor)
 export class AppController {
+  signed_in = true;
   @Get()
   @Render('index')
   getRootPage() {
-    return { page: './template/index' };
+    return {
+      message: 'fuck',
+      signed_in: this.signed_in };
   }
   @Get('about_me')
   @Render('about_me')
   getAbout_me() {
-    return { page: 'about_me' };
+    return { signed_in: this.signed_in  };
   }
   @Get('contact')
   @Render('contact')
   getContact() {
-    return { page: 'contact' };
+    return { signed_in: this.signed_in  };
   }
 
   @Get('feedback')
   @Render('feedback')
   getFeedback() {
-    return { page: 'feedback' };
+    return { signed_in: this.signed_in  };
   }
 
   @Get('registration')
   @Render('registration')
   getLogin() {
-    return { page: 'registration' };
+    return { signed_in: this.signed_in  };
   }
 
   @Get('test')
