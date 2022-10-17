@@ -6,8 +6,8 @@ export class UserDto {
     description: 'User id',
     example: '1',
   })
-  @IsNumberString()
-  id: number;
+  @IsString()
+  id: string;
 
   @ApiProperty({
     description: 'User email',
@@ -18,6 +18,13 @@ export class UserDto {
 }
 
 export class UserInfoDto {
+  @ApiProperty({
+    description: 'User id',
+    example: '1',
+  })
+  @IsString()
+  id: string;
+
   @ApiProperty({
     description: 'user name',
     example: 'Jojo',

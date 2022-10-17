@@ -86,20 +86,6 @@ export class FeedbackController {
       },
     });
   }
-  @ApiOperation({ summary: 'Publish feedback by id' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  @UseFilters(HttpExceptionFilter)
-
-  @Put('publish/:id')
-  async publishFeedback(
-    @Param('id', ParseIntPipe) id: string
-  ): Promise<PostModel> {
-    return this.postService.updateFeedback({
-      where: { id: +id },
-      data: { published: true },
-    });
-  }
 
   @ApiOperation({ summary: 'Delete feedback by id' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Success' })

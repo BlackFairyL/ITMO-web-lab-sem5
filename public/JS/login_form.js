@@ -27,7 +27,7 @@ window.onload = function () {
         }
         else {
           closeForm();
-          window.location.href = '/';
+          window.location.href = '/login';
         }
       });
     }).catch(function(error) {
@@ -48,11 +48,10 @@ window.onload = function () {
 
   async function registration(){
     let email = document.getElementById("email_reg").value;
+    let name = document.getElementById("name_reg").value;
     let password = document.getElementById("password_reg").value;
     let password_two = document.getElementById("password_reg_two").value;
     if(password !== password_two){
-      console.log(password);
-      console.log(password_two);
       document.getElementById("error_form").style.display = "block";
       return;
     }
@@ -75,16 +74,14 @@ window.onload = function () {
         'Content-Type': 'application/json'},
       body: data
     }).then(function(response){
-      response.json().then(function(data) {
+      response.json().then(async function(data) {
         if (data.status !== "OK") {
-          console.log(data);
           document.getElementById("error_form").innerHTML = data.formFields[0].error;
           document.getElementById("error_form").style.display = "block";
-          let id = data.formFields[0].id;
-
-        }
-        else {
-          window.location.href = '/';
+        } else {
+          let id = data.user.id;
+          await createUser(id, name, email);
+          window.location.href = '/login';
         }
       });
     }).catch(function(error) {
@@ -111,4 +108,30 @@ function openForm() {
 
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
+}
+
+function closeSession() {
+  window.location.href = '/logout';
+}
+
+async function createUser(id, name, email) {
+  let data = `{
+            "id": "${id}",
+            "email": "${email}",
+            "name": "${name}"
+   }`;
+  await fetch('/user/create', {
+    method: "POST",
+    headers: {
+      'Accept': '*/*',
+      'Content-Type': 'application/json'
+    },
+    body: data
+  }).then(function(response) {
+    response.json().then(async function(data) {
+    });
+  }).catch(function(error) {
+    console.log('Fetch Error:', error);
+  });
+
 }
