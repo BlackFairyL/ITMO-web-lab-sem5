@@ -6,8 +6,8 @@ import {
   Controller,
   HttpStatus,
   Body,
-  UseFilters,
-} from '@nestjs/common';
+  UseFilters, Param, ParseIntPipe
+} from "@nestjs/common";
 import { UserService } from './user.service';
 import { UserInfoDto, UserDto } from './dto/user.dto';
 import { User } from '@prisma/client';
@@ -23,9 +23,8 @@ export class UserController {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @UseFilters(HttpExceptionFilter)
   @Get()
-  async getProfile(@Query() userDto: UserDto): Promise<User> {
-    userDto.id = +userDto.id;
-    return await this.UserService.getUser(userDto);
+  async getProfile( @Query('id', ParseIntPipe) id: string): Promise<User> {
+    return await this.UserService.getUser(+id);
   }
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Success' })

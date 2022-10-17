@@ -34,7 +34,7 @@ export class FeedbackController {
   @UseFilters(HttpExceptionFilter)
   @Get('feedback/:id')
   async getFeedbackById(
-    @Param('id', ParseIntPipe) id: string,
+    @Param('id', ParseIntPipe) id: string
   ): Promise<PostModel> {
     return this.postService.feedback({ id: +id });
   }
@@ -54,7 +54,7 @@ export class FeedbackController {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Get('filtered-feedback/:searchString')
   async getFilteredFeedbacks(
-    @Param('searchString') searchString: string,
+    @Param('searchString') searchString: string
   ): Promise<PostModel[]> {
     return this.postService.feedbacks({
       where: {
@@ -81,7 +81,7 @@ export class FeedbackController {
     return this.postService.createFeedback({
       title,
       content,
-      author: {
+      user: {
         connect: { email: authorEmail },
       },
     });
@@ -93,7 +93,7 @@ export class FeedbackController {
 
   @Put('publish/:id')
   async publishFeedback(
-    @Param('id', ParseIntPipe) id: string,
+    @Param('id', ParseIntPipe) id: string
   ): Promise<PostModel> {
     return this.postService.updateFeedback({
       where: { id: +id },
@@ -109,7 +109,6 @@ export class FeedbackController {
   @ApiBasicAuth()
   @UseGuards(AuthGuard)
   async deleteFeedback(@Session() session: SessionContainer, @Param('id', ParseIntPipe) id: string): Promise<PostModel> {
-    console.log("KEK" + session.getUserId());
     return this.postService.deleteFeedback({ id: +id });
   }
 }

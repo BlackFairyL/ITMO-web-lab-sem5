@@ -7,17 +7,16 @@ import { UserInfoDto, UserDto } from './dto/user.dto';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async getUser(dataUserDto: UserDto): Promise<User | null> {
-    const { id, email } = dataUserDto;
+  async getUser(userId: number): Promise<User> {
     const user = await this.prisma.user.findFirst({
-      where: { AND: [{ id }, { email }] },
+      where: { id: +userId },
       select: {
         id: true,
         name: true,
         email: true,
       },
     });
-    if (user) {
+    if (user.id) {
       return user;
     }
     return null;
@@ -33,7 +32,7 @@ export class UserService {
   }
 
   async deleteUser(dataUserDto: UserDto): Promise<UserInfoDto> {
-    const user = await this.getUser(dataUserDto);
+    const user = await this.getUser(dataUserDto.id);
     if (user) {
       const deleteUser = await this.prisma.user.delete({
         where: {
