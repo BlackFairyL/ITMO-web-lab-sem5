@@ -1,6 +1,5 @@
 window.onload = function () {
   async function authEmail() {
-    console.log("KEK")
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let data = `{

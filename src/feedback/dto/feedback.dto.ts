@@ -20,3 +20,25 @@ export class FeedbackDto {
   @IsEmail()
   authorEmail: string;
 }
+
+
+export class FeedbackContentDto {
+  @ApiProperty({
+    description: 'Title feedback',
+  })
+  @IsNotEmpty()
+  title: string;
+
+  @ApiProperty({
+    description: 'Content feedback',
+  })
+  @IsNotEmpty()
+  content?: string;
+
+  @ApiProperty({
+    description: 'Author email',
+    example: 'kek@kek.ru',
+  })
+  @IsEmail()
+  authorEmail: string;
+}

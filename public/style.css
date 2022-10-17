@@ -46,6 +46,11 @@ body {
   color: darkred;
 }
 
+.myInput{
+  width: 60%;
+  height: 40px;
+}
+
 .constructor .create-account, .myForm .create-account  {
   border-radius:30px;
   padding:10px 20px;

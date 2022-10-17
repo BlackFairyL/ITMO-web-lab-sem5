@@ -76,7 +76,7 @@ export class FeedbackController {
   @UseFilters(HttpExceptionFilter)
   @Post('feedback')
   @ApiBasicAuth()
-  async createDraft(@Body() feedbackDto: FeedbackDto): Promise<PostModel> {
+  async createFeedback(@Session() session: SessionContainer, @Body() feedbackDto: FeedbackDto): Promise<PostModel> {
     const { title, content, authorEmail } = feedbackDto;
     return this.postService.createFeedback({
       title,
