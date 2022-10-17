@@ -26,6 +26,5 @@ function addNewMessageInChat(message) {
   let addMessage = document.createElement('li');
   addMessage.appendChild(document.createTextNode(message));
   sent_message.appendChild(addMessage);
-
 }
 
