@@ -69,7 +69,7 @@ body {
   border:none;
   color:white;
   display: block;
-  margin-left: 30%;
+  margin-left: 20%;
   margin-right: auto;
 }
 
@@ -231,6 +231,11 @@ hr {
   text-decoration: none;
   display: block;
   color: #00313d;
+}
+
+
+.chat {
+  padding-top: 30px;
 }
 
 @media screen and (max-device-width: 600px) {

@@ -1,5 +1,6 @@
 window.onload = function () {
   async function authEmail() {
+    console.log("KEK")
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let data = `{
@@ -79,6 +80,8 @@ window.onload = function () {
           console.log(data);
           document.getElementById("error_form").innerHTML = data.formFields[0].error;
           document.getElementById("error_form").style.display = "block";
+          let id = data.formFields[0].id;
+
         }
         else {
           window.location.href = '/';

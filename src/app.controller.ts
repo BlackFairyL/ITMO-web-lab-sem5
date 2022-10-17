@@ -1,47 +1,52 @@
-import { Get, Controller, Render, UseInterceptors, UseGuards } from "@nestjs/common";
+import { Get, Controller, Render, UseInterceptors, UseGuards, Res } from "@nestjs/common";
 import { TimerInterceptor } from './timer.interceptor';
 import { SessionContainer } from "supertokens-node/recipe/session";
 import { AuthGuard } from './auth/auth.guard';
 import { Session } from './auth/session.decorator';
+import { Response } from 'express';
+
 
 @Controller()
 @UseInterceptors(TimerInterceptor)
 export class AppController {
-  signed_in = true;
+  signed_in = false;
   @Get()
-  @Render('index')
-  getRootPage() {
-    return {
-      message: 'fuck',
-      signed_in: this.signed_in };
-  }
+  getRootPage(@Res() res: Response) {
+    return res.render('index', {
+      signed_in: this.signed_in
+    });
+  };
   @Get('about_me')
-  @Render('about_me')
-  getAbout_me() {
-    return { signed_in: this.signed_in  };
-  }
+  getAbout_me(@Res() res: Response) {
+    return res.render('about_me', {
+      signed_in: this.signed_in
+    });
+  };
   @Get('contact')
-  @Render('contact')
-  getContact() {
-    return { signed_in: this.signed_in  };
-  }
+  getContact(@Res() res: Response) {
+    return res.render('contact', {
+      signed_in: this.signed_in
+    });
+  };
 
   @Get('feedback')
-  @Render('feedback')
-  getFeedback() {
-    return { signed_in: this.signed_in  };
-  }
+  getFeedback(@Res() res: Response) {
+    return res.render('feedback', {
+      signed_in: this.signed_in
+    });
+  };
 
   @Get('registration')
-  @Render('registration')
-  getLogin() {
-    return { signed_in: this.signed_in  };
-  }
+  getLogin(@Res() res: Response) {
+    return res.render('registration', {
+      signed_in: this.signed_in
+    });
+  };
 
   @Get('test')
   @UseGuards(AuthGuard)
   async getTest(@Session() session: SessionContainer): Promise<string> {
     // TODO: magic
     return "magic";
-  }
+  };
 }

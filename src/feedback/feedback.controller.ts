@@ -108,8 +108,8 @@ export class FeedbackController {
   @Delete('feedback/:id')
   @ApiBasicAuth()
   @UseGuards(AuthGuard)
-  async deleteFeedback(@Session() session: SessionContainer): Promise<PostModel> {
+  async deleteFeedback(@Session() session: SessionContainer, @Param('id', ParseIntPipe) id: string): Promise<PostModel> {
     console.log("KEK" + session.getUserId());
-    return this.postService.deleteFeedback({ id: +session });
+    return this.postService.deleteFeedback({ id: +id });
   }
 }

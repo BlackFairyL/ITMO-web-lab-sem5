@@ -10,6 +10,8 @@ import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './http-exception.filter';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddleware } from "./auth/auth.middleware";
+import { WidgetModule } from './widget/widget.module';
+import { WidgetController } from "./widget/widget.controller";
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { AuthMiddleware } from "./auth/auth.middleware";
         apiBasePath: "/auth",
         websiteBasePath: "/",
       },
-    }), AppModule, AuthModule, AuthModule
+    }), AppModule, AuthModule, AuthModule, WidgetModule
   ],
   controllers: [AppController, UserController, FeedbackController],
   providers: [ AppService,
